@@ -5,10 +5,43 @@
  */
 package ec.edu.ups.controlador;
 
+import java.io.File;
+
 /**
  *
  * @author JHON FAREZ
  */
 public class ControladorDirectorio {
+   
+    private String ruta;
+    File archivo;
+    File [] archivos;
     
+    public void controladorDirectorio(String ruta){
+    
+    }
+    public void listarArchivos(){
+    
+    }
+    public void listarDirectorios(){
+    
+    }
+    public void listarArchivosOcultos(){
+    
+    }
+    public void directoriosOcultos(){
+    
+    }
+    public void directorio(String nombre){
+    
+    }
+    public void eliminarDirectorio(String nombre){
+    
+    }
+    public void renombrarDirectorio(String actual, String nuevo){
+    
+    }
+    public void mostrarInformacion(String nombre){
+    
+    }
 }
