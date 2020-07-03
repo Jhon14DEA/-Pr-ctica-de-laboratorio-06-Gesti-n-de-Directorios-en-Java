@@ -5,6 +5,7 @@
  */
 package ec.edu.ups.controlador;
 
+import ec.edu.ups.vista.VentanaPrincipal;
 import java.io.File;
 
 /**
@@ -13,9 +14,18 @@ import java.io.File;
  */
 public class ControladorDirectorio {
    
+    private VentanaPrincipal ventanaPrincipal;
     private String ruta;
     File archivo;
     File [] archivos;
+
+    public ControladorDirectorio(VentanaPrincipal ventanaPrincipal, String ruta) {
+        this.ventanaPrincipal = ventanaPrincipal;
+        this.ruta = ruta;
+    }
+
+    
+    
     
     public void controladorDirectorio(String ruta){
     
