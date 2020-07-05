@@ -6,7 +6,13 @@
 package ec.edu.ups.controlador;
 
 import ec.edu.ups.vista.VentanaPrincipal;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -14,44 +20,53 @@ import java.io.File;
  */
 public class ControladorDirectorio {
    
-    private VentanaPrincipal ventanaPrincipal;
+    
     private String ruta;
     File archivo;
     File [] archivos;
 
-    public ControladorDirectorio(VentanaPrincipal ventanaPrincipal, String ruta) {
-        this.ventanaPrincipal = ventanaPrincipal;
-        this.ruta = ruta;
+    
+    public ControladorDirectorio(){
+    
+    }
+  public void inicializarRuta(String ruta) {
+        archivo = new File(ruta);
     }
 
-    
-    
-    
-    public void controladorDirectorio(String ruta){
-    
+    public void abrirCarpeta(String ruta, String nombre) {
+
     }
-    public void listarArchivos(){
-    
+
+    public String[] getArchivos() {
+        return archivo.list();
     }
-    public void listarDirectorios(){
-    
+
+    public void guardarTexto(String nombre, String texto) {
+        try {
+            FileWriter arch = new FileWriter(archivo.getAbsolutePath() + "\\" + nombre, false);
+            BufferedWriter contenido = new BufferedWriter(arch);
+            contenido.append(texto);
+            contenido.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
-    public void listarArchivosOcultos(){
-    
-    }
-    public void directoriosOcultos(){
-    
-    }
-    public void directorio(String nombre){
-    
-    }
-    public void eliminarDirectorio(String nombre){
-    
-    }
-    public void renombrarDirectorio(String actual, String nuevo){
-    
-    }
-    public void mostrarInformacion(String nombre){
-    
+
+    public String leerArchivo(String nombre) {
+        String resultado = "";
+        try {
+            FileReader arch = new FileReader(archivo.getAbsolutePath() + "/" + nombre);
+            BufferedReader contenido = new BufferedReader(arch);
+            String linea = "";
+            while (linea != null) {
+                resultado = resultado + linea + "\n";
+                linea = contenido.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return resultado;
     }
 }

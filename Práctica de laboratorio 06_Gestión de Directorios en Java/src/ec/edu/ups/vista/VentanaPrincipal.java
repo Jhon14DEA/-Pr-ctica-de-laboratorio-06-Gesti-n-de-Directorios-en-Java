@@ -5,6 +5,8 @@
  */
 package ec.edu.ups.vista;
 
+import ec.edu.ups.controlador.ControladorDirectorio;
+
 /**
  *
  * @author JHON FAREZ
@@ -14,8 +16,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
+    
+    private ControladorDirectorio controladorDirectorio;
+    private String rutaAboluta;
+    private String rutaRelativa;
+    private String carpetaActual;
+    
+    
     public VentanaPrincipal() {
+        controladorDirectorio = new ControladorDirectorio();
         initComponents();
+        this.setLocationRelativeTo(null);
+        rutaAboluta = new String();
+        rutaRelativa = new String();
+        carpetaActual = new String();
     }
 
     /**
@@ -145,6 +159,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnListarDirectoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDirectoriosActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnListarDirectoriosActionPerformed
 
     /**
