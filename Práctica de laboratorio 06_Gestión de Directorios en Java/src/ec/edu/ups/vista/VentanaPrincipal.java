@@ -19,7 +19,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     
     private ControladorDirectorio controladorDirectorio;
-    private String rutaAboluta;
+    private String rutaAbsoluta;
     private String rutaRelativa;
     private String carpetaActual;
     
@@ -28,7 +28,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         controladorDirectorio = new ControladorDirectorio();
         initComponents();
         this.setLocationRelativeTo(null);
-        rutaAboluta = new String();
+        rutaAbsoluta = new String();
         rutaRelativa = new String();
         carpetaActual = new String();
     }
@@ -101,6 +101,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
 
         jMenu2.setText("Gestionar Directorio");
 
@@ -192,7 +197,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String atras = txtRuta.getText();
         if(atras.lastIndexOf(File.separator) != -1){
         rutaRelativa = atras.substring(0, atras.lastIndexOf(File.separator));
-        carpetaActual = rutaAboluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
+        carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
        //txtNombreActual.setText(carpetaActual);
             controladorDirectorio.inicializarRuta(rutaRelativa);
             String[] resultado = controladorDirectorio.getArchivos();
@@ -200,6 +205,62 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             txtRuta.setText(rutaRelativa);
         }
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+      if (rutaAbsoluta.length() != rutaRelativa.length()) {
+            String atras = txtRuta.getText();
+            int numer = atras.length();
+            String restoRuta = rutaAbsoluta.substring(numer + 1, rutaAbsoluta.length());
+            System.out.println(restoRuta);
+
+            if (restoRuta.indexOf(File.separator) != -1) {
+                rutaRelativa = atras + File.separator + restoRuta.substring(0, restoRuta.indexOf(File.separator));
+                carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
+                //txtNombreActual.setText(carpetaActual);
+                controladorDirectorio.inicializarRuta(rutaRelativa);
+                String[] resultado = controladorDirectorio.getArchivos();
+                listarTodo.setListData(resultado);
+
+                txtRuta.setText(rutaRelativa);
+            } else {
+                rutaRelativa = atras + File.separator + restoRuta;
+                carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
+               // txtNombreActual.setText(carpetaActual);
+                controladorDirectorio.inicializarRuta(rutaRelativa);
+                String[] resultado = controladorDirectorio.getArchivos();
+                listarTodo.setListData(resultado);
+
+                txtRuta.setText(rutaRelativa);
+            }
+        } else {
+            carpetaActual = rutaAbsoluta.substring(rutaAbsoluta.lastIndexOf(File.separator) + 1, rutaAbsoluta.length());
+           // txtNombreActual.setText(carpetaActual);
+        }
+
+
+    }                                            
+
+    private void lstDirectorioValueChanged(javax.swing.event.ListSelectionEvent evt) {                                           
+        String nombre = controladorDirectorio.getArchivos()[evt.getLastIndex()];
+        //txtNombre.setText(nombre);
+        File f = new File(txtRuta.getText(), nombre);
+
+        if (f.isDirectory()) {
+            rutaAbsoluta = txtRuta.getText() + File.separator + nombre;
+            txtRuta.setText(rutaAbsoluta);
+            carpetaActual = rutaAbsoluta.substring(rutaAbsoluta.lastIndexOf(File.separator) + 1, rutaAbsoluta.length());
+          /// txtNombreActual.setText(carpetaActual);
+            System.out.println(rutaAbsoluta);
+            controladorDirectorio.inicializarRuta(rutaAbsoluta);
+            String[] resultado = controladorDirectorio.getArchivos();
+            listarTodo.setListData(resultado);
+            System.out.println(rutaAbsoluta);
+
+        } else {
+            String contenido = controladorDirectorio.leerArchivo(nombre);
+            //txtTexto.setText(contenido);
+        }
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     /**
      * @param args the command line arguments
