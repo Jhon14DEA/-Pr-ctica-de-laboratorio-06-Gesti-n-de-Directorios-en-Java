@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,8 +24,8 @@ import java.util.List;
 public class ControladorDirectorio {
 
     private String ruta;
-    File archivo;
-    File[] archivos;
+    private File archivo;
+    private File[] archivos;
 
     public ControladorDirectorio() {
 
@@ -34,42 +35,11 @@ public class ControladorDirectorio {
         archivo = new File(ruta);
     }
 
-    public void abrirCarpeta(String ruta, String nombre) {
-
-    }
+    
 
     public String[] getArchivos() {
         return archivo.list();
-    }
-
-    public void guardarTexto(String nombre, String texto) {
-        try {
-            FileWriter arch = new FileWriter(archivo.getAbsolutePath() + "\\" + nombre, false);
-            BufferedWriter contenido = new BufferedWriter(arch);
-            contenido.append(texto);
-            contenido.close();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public String leerArchivo(String nombre) {
-        String resultado = "";
-        try {
-            FileReader arch = new FileReader(archivo.getAbsolutePath() + "/" + nombre);
-            BufferedReader contenido = new BufferedReader(arch);
-            String linea = "";
-            while (linea != null) {
-                resultado = resultado + linea + "\n";
-                linea = contenido.readLine();
-            }
-        } catch (FileNotFoundException ex) {
-            System.err.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return resultado;
-    }
+    }   
 
     public List<String> listarArchivos(String ruta) {
         List<String> lista = new ArrayList<>();
@@ -130,5 +100,49 @@ public class ControladorDirectorio {
         return lista;
     }
     
+    public void crearDirectorio(String nombre){
+        archivo = new File(ruta);
+        nombre = JOptionPane.showInputDialog("Ingrese el nombre de su directorio ");
 
+        File file = new File(nombre);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                JOptionPane.showMessageDialog(null, "Directorio creado con exito");
+                JOptionPane.showMessageDialog(null,"Datos del directorio creado"+
+                        "\nNombre: "+file.getName()+"\nRuta aboluta:  "+file.getAbsolutePath()+
+                        "\nTamanio: "+file.length());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Directorio "+file+" ya existe");
+            }
+        }
+    }
+    public void eliminarDirectorio(String nombre){
+    
+    }
+    
+    public void renombrarDirectorio(String actual, String nuevo){
+    
+    }
+    public  String mostrarIformacion (String nombre, String ruta){
+    archivo = new File(ruta);
+    archivos = archivo.listFiles();
+    String contenido = "contenido";
+    
+        for (File elemento : archivos) {
+            if(elemento.getName().equals(nombre)){
+            String total = "Path: ";
+            total = total.concat(elemento.getAbsolutePath());
+            contenido =contenido.concat(total);
+            
+            String length = "length";
+            
+            }
+        }
+    return  contenido;
+    }
 }
+    
+
+
