@@ -7,6 +7,8 @@ package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.ControladorDirectorio;
 import java.io.File;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,13 +19,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
-    
     private ControladorDirectorio controladorDirectorio;
     private String rutaAbsoluta;
     private String rutaRelativa;
     private String carpetaActual;
-    
-    
+
     public VentanaPrincipal() {
         controladorDirectorio = new ControladorDirectorio();
         initComponents();
@@ -111,10 +111,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         menuItemCrear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menuItemCrear.setText("Crear");
+        menuItemCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCrearActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuItemCrear);
 
         menuItemEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         menuItemEliminar.setText("Eliminar");
+        menuItemEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEliminarActionPerformed(evt);
+            }
+        });
         jMenu2.add(menuItemEliminar);
 
         menuItemRenombrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
@@ -184,21 +194,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutaActionPerformed
-       
-        
+
+
     }//GEN-LAST:event_txtRutaActionPerformed
 
     private void btnListarDirectoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDirectoriosActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnListarDirectoriosActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         String atras = txtRuta.getText();
-        if(atras.lastIndexOf(File.separator) != -1){
-        rutaRelativa = atras.substring(0, atras.lastIndexOf(File.separator));
-        carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
-       //txtNombreActual.setText(carpetaActual);
+        if (atras.lastIndexOf(File.separator) != -1) {
+            rutaRelativa = atras.substring(0, atras.lastIndexOf(File.separator));
+            carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
+           // txtNombreActual.setText(carpetaActual);
             controladorDirectorio.inicializarRuta(rutaRelativa);
             String[] resultado = controladorDirectorio.getArchivos();
             listarTodo.setListData(resultado);
@@ -207,7 +217,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-      if (rutaAbsoluta.length() != rutaRelativa.length()) {
+        if (rutaAbsoluta.length() != rutaRelativa.length()) {
             String atras = txtRuta.getText();
             int numer = atras.length();
             String restoRuta = rutaAbsoluta.substring(numer + 1, rutaAbsoluta.length());
@@ -225,7 +235,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             } else {
                 rutaRelativa = atras + File.separator + restoRuta;
                 carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
-               // txtNombreActual.setText(carpetaActual);
+                // txtNombreActual.setText(carpetaActual);
                 controladorDirectorio.inicializarRuta(rutaRelativa);
                 String[] resultado = controladorDirectorio.getArchivos();
                 listarTodo.setListData(resultado);
@@ -234,13 +244,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         } else {
             carpetaActual = rutaAbsoluta.substring(rutaAbsoluta.lastIndexOf(File.separator) + 1, rutaAbsoluta.length());
-           // txtNombreActual.setText(carpetaActual);
+            // txtNombreActual.setText(carpetaActual);
         }
 
+    }
 
-    }                                            
-
-    private void lstDirectorioValueChanged(javax.swing.event.ListSelectionEvent evt) {                                           
+    private void lstDirectorioValueChanged(javax.swing.event.ListSelectionEvent evt) {
         String nombre = controladorDirectorio.getArchivos()[evt.getLastIndex()];
         //txtNombre.setText(nombre);
         File f = new File(txtRuta.getText(), nombre);
@@ -249,7 +258,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             rutaAbsoluta = txtRuta.getText() + File.separator + nombre;
             txtRuta.setText(rutaAbsoluta);
             carpetaActual = rutaAbsoluta.substring(rutaAbsoluta.lastIndexOf(File.separator) + 1, rutaAbsoluta.length());
-          /// txtNombreActual.setText(carpetaActual);
+            /// txtNombreActual.setText(carpetaActual);
             System.out.println(rutaAbsoluta);
             controladorDirectorio.inicializarRuta(rutaAbsoluta);
             String[] resultado = controladorDirectorio.getArchivos();
@@ -261,6 +270,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             //txtTexto.setText(contenido);
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void menuItemCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearActionPerformed
+
+        String nombre ;
+        nombre = JOptionPane.showInputDialog("Ingrese el nombre de su directorio ");
+
+        File file = new File(nombre);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                JOptionPane.showMessageDialog(null, "Directorio creado con exito");
+                JOptionPane.showMessageDialog(null,"Datos del directorio creado"+
+                        "\nNombre: "+file.getName()+"\nRuta aboluta:  "+file.getAbsolutePath()+
+                        "\nTamanio: "+file.length());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Directorio "+file+" ya existe");
+            }
+        }
+    }//GEN-LAST:event_menuItemCrearActionPerformed
+
+    private void menuItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemEliminarActionPerformed
 
     /**
      * @param args the command line arguments
