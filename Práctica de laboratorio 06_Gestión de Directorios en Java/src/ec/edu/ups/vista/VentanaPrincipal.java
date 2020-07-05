@@ -81,6 +81,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnListarArchivosOcultos.setText("Listar Archivos Ocultos");
+        btnListarArchivosOcultos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarArchivosOcultosActionPerformed(evt);
+            }
+        });
 
         btnListarDirectoriosOcultos.setText("Listar Directorios Ocultos");
 
@@ -319,7 +324,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCrearActionPerformed
 
     private void menuItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarActionPerformed
-       
+
         
     }//GEN-LAST:event_menuItemEliminarActionPerformed
 
@@ -328,8 +333,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemSalirActionPerformed
 
     private void btnMostrarInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarInformacionActionPerformed
-        // TODO add your handling code here:
+        rutaAbsoluta = txtRuta.getText();
+        controladorDirectorio.inicializarRuta(txtRuta.getText());
+        String[] resultado = controladorDirectorio.getArchivos();
+        //lstDirectorio.setListData(resultado);
     }//GEN-LAST:event_btnMostrarInformacionActionPerformed
+
+    private void btnListarArchivosOcultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArchivosOcultosActionPerformed
+       if(txtRuta.getText().equals("")){
+       JOptionPane.showMessageDialog(null, "Ingrese una ruta");
+       }else{
+       //List<String> 
+       }
+    }//GEN-LAST:event_btnListarArchivosOcultosActionPerformed
 
     /**
      * @param args the command line arguments

@@ -62,26 +62,11 @@ public class ControladorDirectorio {
         lista.clear();
         archivo = new File(ruta);
         archivos = archivo.listFiles();
-
         for (File elemento : archivos) {
-            if (elemento.isHidden() && elemento.isFile()) {
+            if (elemento.isHidden() && !elemento.isDirectory()) {
                 lista.add(elemento.getName());
             }
         }
-
-        for (File elemento : archivos) {
-            if (elemento.isDirectory()) {
-                File[] subdirectorios = elemento.listFiles();
-                for (File subelemento : subdirectorios) {
-                    if (subelemento.isHidden() && subelemento.isFile()) {
-                        lista.add(subelemento.getName());
-                    }
-
-                }
-
-            }
-        }
-
         return lista;
     }
 
