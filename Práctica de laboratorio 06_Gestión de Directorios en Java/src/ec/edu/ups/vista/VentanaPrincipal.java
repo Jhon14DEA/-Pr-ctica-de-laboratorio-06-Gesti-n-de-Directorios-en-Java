@@ -132,7 +132,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnListarDirectorios.setBackground(new java.awt.Color(51, 204, 255));
-        btnListarDirectorios.setForeground(new java.awt.Color(51, 255, 0));
+        btnListarDirectorios.setForeground(new java.awt.Color(0, 0, 0));
         btnListarDirectorios.setText("Listar Directorios");
         btnListarDirectorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +141,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnListarArchivosOcultos.setBackground(new java.awt.Color(0, 255, 255));
-        btnListarArchivosOcultos.setForeground(new java.awt.Color(0, 255, 0));
+        btnListarArchivosOcultos.setForeground(new java.awt.Color(0, 0, 0));
         btnListarArchivosOcultos.setText("Listar Archivos Ocultos");
         btnListarArchivosOcultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,7 +150,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         btnListarDirectoriosOcultos.setBackground(new java.awt.Color(51, 255, 255));
-        btnListarDirectoriosOcultos.setForeground(new java.awt.Color(0, 255, 0));
+        btnListarDirectoriosOcultos.setForeground(new java.awt.Color(0, 0, 0));
         btnListarDirectoriosOcultos.setText("Listar Directorios Ocultos");
         btnListarDirectoriosOcultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,7 +395,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         nuevo = JOptionPane.showInputDialog("Ingrese el nombre del directorio");
         if (nuevo == null) {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre al directorio");
+            JOptionPane.showMessageDialog(this, "Directorio creado");
         } else {
             System.out.println(nuevo);
             String ruta = txtRuta.getText();
