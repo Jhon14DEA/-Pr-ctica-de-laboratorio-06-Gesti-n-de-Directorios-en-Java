@@ -5,9 +5,13 @@
  */
 package ec.edu.ups.vista;
 
+
 import ec.edu.ups.controlador.ControladorDirectorio;
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,21 +20,34 @@ import javax.swing.JOptionPane;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    private ControladorDirectorio controladorDirectorio;
+
     /**
      * Creates new form VentanaPrincipal
      */
-    private ControladorDirectorio controladorDirectorio;
-    private String rutaAbsoluta;
-    private String rutaRelativa;
-    private String carpetaActual;
-
     public VentanaPrincipal() {
-        controladorDirectorio = new ControladorDirectorio();
         initComponents();
-        this.setLocationRelativeTo(null);
-        rutaAbsoluta = new String();
-        rutaRelativa = new String();
-        carpetaActual = new String();
+        controladorDirectorio = new ControladorDirectorio();
+    }
+
+    public void llenarLista(List<String> directorio) {
+        DefaultListModel modelo = new DefaultListModel();
+        modelo.clear();
+
+        for (String nombre : directorio) {
+            modelo.addElement(nombre);
+        }
+        lista.setModel(modelo);
+        txtAreaInformacion.setText("");
+        btnMostrarInformacion.setEnabled(false);
+    }
+
+    public void limpiarLista() {
+        DefaultListModel modelo = new DefaultListModel();
+        modelo.clear();
+        lista.setModel(modelo);
+        txtAreaInformacion.setText("");
+        btnMostrarInformacion.setEnabled(false);
     }
 
     /**
@@ -42,37 +59,76 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        txtRuta = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lista = new javax.swing.JList<>();
+        btnMostrarInformacion = new javax.swing.JButton();
         btnListarDirectorios = new javax.swing.JButton();
         btnListarArchivosOcultos = new javax.swing.JButton();
         btnListarDirectoriosOcultos = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listarTodo = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaInformacion = new javax.swing.JTextArea();
-        btnAtras = new javax.swing.JButton();
-        btnSiguiente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnMostrarInformacion = new javax.swing.JButton();
+        txtRuta = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaInformacion = new javax.swing.JTextArea();
+        txtContenido = new javax.swing.JScrollPane();
+        txtTexto = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        menuItemCrear = new javax.swing.JMenuItem();
-        menuItemEliminar = new javax.swing.JMenuItem();
-        menuItemRenombrar = new javax.swing.JMenuItem();
-        menuItemSalir = new javax.swing.JMenuItem();
-
-        jMenu1.setText("jMenu1");
+        jMenu1 = new javax.swing.JMenu();
+        crearDirectorio = new javax.swing.JMenuItem();
+        eliminarDirectorio = new javax.swing.JMenuItem();
+        renombrarDirectorio = new javax.swing.JMenuItem();
+        salir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Gestionar Directorios\n");
+        setTitle("\t\t\tGestionar Directorios");
 
-        txtRuta.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 889, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 480, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 598, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 95, Short.MAX_VALUE)
+        );
+
+        lista.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), null));
+        lista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaMouseClicked(evt);
+            }
+        });
+        lista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lista);
+
+        btnMostrarInformacion.setBackground(new java.awt.Color(102, 102, 255));
+        btnMostrarInformacion.setText("Mostrar Información");
+        btnMostrarInformacion.setEnabled(false);
+        btnMostrarInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRutaActionPerformed(evt);
+                btnMostrarInformacionActionPerformed(evt);
             }
         });
 
+        btnListarDirectorios.setBackground(new java.awt.Color(102, 102, 255));
         btnListarDirectorios.setText("Listar Directorios");
         btnListarDirectorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,6 +136,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnListarArchivosOcultos.setBackground(new java.awt.Color(102, 102, 255));
         btnListarArchivosOcultos.setText("Listar Archivos Ocultos");
         btnListarArchivosOcultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,76 +144,66 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnListarDirectoriosOcultos.setBackground(new java.awt.Color(102, 102, 255));
         btnListarDirectoriosOcultos.setText("Listar Directorios Ocultos");
-
-        listarTodo.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listarTodo);
-
-        jTextAreaInformacion.setColumns(20);
-        jTextAreaInformacion.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaInformacion);
-
-        btnAtras.setText("Atras");
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+        btnListarDirectoriosOcultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
+                btnListarDirectoriosOcultosActionPerformed(evt);
             }
         });
 
-        btnSiguiente.setText("Siguiente");
-        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Ruta:");
+
+        txtAreaInformacion.setEditable(false);
+        txtAreaInformacion.setBackground(new java.awt.Color(153, 153, 153));
+        txtAreaInformacion.setColumns(20);
+        txtAreaInformacion.setLineWrap(true);
+        txtAreaInformacion.setRows(5);
+        jScrollPane2.setViewportView(txtAreaInformacion);
+
+        txtTexto.setColumns(20);
+        txtTexto.setRows(5);
+        txtContenido.setViewportView(txtTexto);
+
+        jMenu1.setText("Gestionar Directorio");
+
+        crearDirectorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        crearDirectorio.setText("Crear");
+        crearDirectorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSiguienteActionPerformed(evt);
+                crearDirectorioActionPerformed(evt);
             }
         });
+        jMenu1.add(crearDirectorio);
 
-        jLabel1.setText("Ruta: ");
-
-        btnMostrarInformacion.setText("Mostrar Informacion");
-        btnMostrarInformacion.addActionListener(new java.awt.event.ActionListener() {
+        eliminarDirectorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        eliminarDirectorio.setText("Eliminar");
+        eliminarDirectorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarInformacionActionPerformed(evt);
+                eliminarDirectorioActionPerformed(evt);
             }
         });
+        jMenu1.add(eliminarDirectorio);
 
-        jMenu2.setText("Gestionar Directorio");
-
-        menuItemCrear.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemCrear.setText("Crear");
-        menuItemCrear.addActionListener(new java.awt.event.ActionListener() {
+        renombrarDirectorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        renombrarDirectorio.setText("Renombrar");
+        renombrarDirectorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemCrearActionPerformed(evt);
+                renombrarDirectorioActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemCrear);
+        jMenu1.add(renombrarDirectorio);
 
-        menuItemEliminar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemEliminar.setText("Eliminar");
-        menuItemEliminar.addActionListener(new java.awt.event.ActionListener() {
+        salir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, java.awt.event.InputEvent.CTRL_MASK));
+        salir.setText("Salir");
+        salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemEliminarActionPerformed(evt);
+                salirActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemEliminar);
+        jMenu1.add(salir);
 
-        menuItemRenombrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemRenombrar.setText("Renombrar");
-        jMenu2.add(menuItemRenombrar);
-
-        menuItemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemSalir.setText("Salir");
-        menuItemSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemSalirActionPerformed(evt);
-            }
-        });
-        jMenu2.add(menuItemSalir);
-
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -164,188 +211,255 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28)
+                                .addComponent(btnMostrarInformacion))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnListarDirectorios)
-                                        .addGap(130, 130, 130)
-                                        .addComponent(btnListarArchivosOcultos))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnAtras)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnSiguiente))
-                                    .addComponent(btnListarDirectoriosOcultos)))))
+                                .addContainerGap()
+                                .addComponent(btnListarDirectorios)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnListarArchivosOcultos)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnListarDirectoriosOcultos))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(btnMostrarInformacion)))
-                .addGap(0, 82, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(586, 586, 586))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAtras)
-                            .addComponent(btnSiguiente))
-                        .addGap(94, 94, 94)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
+                            .addComponent(jLabel1)
+                            .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnListarDirectoriosOcultos)
+                            .addComponent(btnListarDirectorios)
                             .addComponent(btnListarArchivosOcultos)
-                            .addComponent(btnListarDirectorios))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnMostrarInformacion)
-                .addContainerGap(77, Short.MAX_VALUE))
+                            .addComponent(btnListarDirectoriosOcultos))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnMostrarInformacion))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutaActionPerformed
-
-
-    }//GEN-LAST:event_txtRutaActionPerformed
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_salirActionPerformed
 
     private void btnListarDirectoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDirectoriosActionPerformed
-   
+        // TODO add your handling code here:
+        String ruta = txtRuta.getText();
 
+        String subdirectorio = lista.getSelectedValue();
+
+        if (subdirectorio != null) {
+            List<String> directorios = controladorDirectorio.buscarPorNombre(ruta, subdirectorio);
+            
+            //
+            txtRuta.setText(controladorDirectorio.devolverRuta(ruta, subdirectorio));
+            subdirectorio = null;
+            if (directorios.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Directorio  vacio");
+
+                limpiarLista();
+            } else {
+                llenarLista(directorios);
+            }
+        } else {
+            if (ruta == null) {
+                JOptionPane.showMessageDialog(this, "Escriba el campo de la ruta");
+            } else {
+                if (controladorDirectorio.comprobarRuta(ruta)) {
+                    List<String> directorios = controladorDirectorio.listarArchivos(ruta);
+                    if (directorios.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Directorio vacio");
+                        limpiarLista();
+                    } else {
+                        llenarLista(directorios);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ruta no econtrada");
+
+                }
+
+            }
+        }
     }//GEN-LAST:event_btnListarDirectoriosActionPerformed
 
-    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        String atras = txtRuta.getText();
-        if (atras.lastIndexOf(File.separator) != -1) {
-            rutaRelativa = atras.substring(0, atras.lastIndexOf(File.separator));
-            carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
-           // txtNombreActual.setText(carpetaActual);
-            controladorDirectorio.inicializarRuta(rutaRelativa);
-            String[] resultado = controladorDirectorio.getArchivos();
-            listarTodo.setListData(resultado);
-            txtRuta.setText(rutaRelativa);
-        }
-    }//GEN-LAST:event_btnAtrasActionPerformed
+    private void btnListarArchivosOcultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArchivosOcultosActionPerformed
+        // TODO add your handling code here:
+        String ruta = txtRuta.getText();
 
-    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
-        if (rutaAbsoluta.length() != rutaRelativa.length()) {
-            String atras = txtRuta.getText();
-            int numer = atras.length();
-            String restoRuta = rutaAbsoluta.substring(numer + 1, rutaAbsoluta.length());
-            System.out.println(restoRuta);
-
-            if (restoRuta.indexOf(File.separator) != -1) {
-                rutaRelativa = atras + File.separator + restoRuta.substring(0, restoRuta.indexOf(File.separator));
-                carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
-                //txtNombreActual.setText(carpetaActual);
-                controladorDirectorio.inicializarRuta(rutaRelativa);
-                String[] resultado = controladorDirectorio.getArchivos();
-                listarTodo.setListData(resultado);
-
-                txtRuta.setText(rutaRelativa);
+        if (ruta == null) {
+            JOptionPane.showMessageDialog(this, "Llenar el campo de la ruta para nuscar archivos ocultos");
+        } else {
+            if (controladorDirectorio.comprobarRuta(ruta)) {
+                List<String> directorios = controladorDirectorio.listarArchivosOcultos(ruta);
+                if (directorios.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, " Archivos ocultos no encontrados");
+                    limpiarLista();
+                } else {
+                    llenarLista(directorios);
+                }
             } else {
-                rutaRelativa = atras + File.separator + restoRuta;
-                carpetaActual = rutaAbsoluta.substring(rutaRelativa.lastIndexOf(File.separator) + 1, rutaRelativa.length());
-                // txtNombreActual.setText(carpetaActual);
-                controladorDirectorio.inicializarRuta(rutaRelativa);
-                String[] resultado = controladorDirectorio.getArchivos();
-                listarTodo.setListData(resultado);
+                JOptionPane.showMessageDialog(this, "Directorio incorrectO");
 
-                txtRuta.setText(rutaRelativa);
             }
+
+        }
+    }//GEN-LAST:event_btnListarArchivosOcultosActionPerformed
+
+    private void btnListarDirectoriosOcultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDirectoriosOcultosActionPerformed
+        // TODO add your handling code here:
+        String ruta = txtRuta.getText();
+
+        if (ruta == null) {
+            JOptionPane.showMessageDialog(this, "Lleene el campo de la ruta ");
         } else {
-            carpetaActual = rutaAbsoluta.substring(rutaAbsoluta.lastIndexOf(File.separator) + 1, rutaAbsoluta.length());
-            // txtNombreActual.setText(carpetaActual);
+            if (controladorDirectorio.comprobarRuta(ruta)) {
+                List<String> directorios = controladorDirectorio.listarDirectoriosOcultos(ruta);
+                if (directorios.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, " Directorios ocultos no encontrados");
+                    limpiarLista();
+                } else {
+                    llenarLista(directorios);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Directorio incorrectO");
+            }
+
         }
 
-    }
+    }//GEN-LAST:event_btnListarDirectoriosOcultosActionPerformed
 
-    private void lstDirectorioValueChanged(javax.swing.event.ListSelectionEvent evt) {
-        String nombre = controladorDirectorio.getArchivos()[evt.getLastIndex()];
-        //txtNombre.setText(nombre);
-        File f = new File(txtRuta.getText(), nombre);
+    private void crearDirectorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearDirectorioActionPerformed
+        // TODO add your handling code here:
+        String nuevo = null;
 
-        if (f.isDirectory()) {
-            rutaAbsoluta = txtRuta.getText() + File.separator + nombre;
-            txtRuta.setText(rutaAbsoluta);
-            carpetaActual = rutaAbsoluta.substring(rutaAbsoluta.lastIndexOf(File.separator) + 1, rutaAbsoluta.length());
-            /// txtNombreActual.setText(carpetaActual);
-            System.out.println(rutaAbsoluta);
-            controladorDirectorio.inicializarRuta(rutaAbsoluta);
-            String[] resultado = controladorDirectorio.getArchivos();
-            listarTodo.setListData(resultado);
-            System.out.println(rutaAbsoluta);
-
+        nuevo = JOptionPane.showInputDialog("Ingrese el nombre del directorio");
+        if (nuevo == null) {
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre al directorio");
         } else {
-//            String contenido = controladorDirectorio.leerArchivo(nombre);
-            //txtTexto.setText(contenido);
-        }
-    }//GEN-LAST:event_btnSiguienteActionPerformed
+            System.out.println(nuevo);
+            String ruta = txtRuta.getText();
+            if (ruta == null) {
+                JOptionPane.showMessageDialog(this, "Ingrese la ruta para crear un nuevo directorio");
+            } else {
+                if (controladorDirectorio.comprobarExistencia(ruta, nuevo)) {
+                     JOptionPane.showMessageDialog(this, "La carpeta ya existe");
 
-    private void menuItemCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearActionPerformed
-
-        String nombre ;
-        nombre = JOptionPane.showInputDialog("Ingrese el nombre de su directorio ");
-
-        File file = new File(nombre);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                JOptionPane.showMessageDialog(null, "Directorio creado con exito");
-                JOptionPane.showMessageDialog(null,"Datos del directorio creado"+
-                        "\nNombre: "+file.getName()+"\nRuta aboluta:  "+file.getAbsolutePath()+
-                        "\nTamanio: "+file.length());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null,"Directorio "+file+" ya existe");
+                } else {
+                    controladorDirectorio.crearDirectorio(ruta, nuevo);
+                    List<String> directorio = controladorDirectorio.listarArchivos(ruta);
+                    llenarLista(directorio);
+                }
             }
         }
-    }//GEN-LAST:event_menuItemCrearActionPerformed
 
-    private void menuItemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarActionPerformed
+    }//GEN-LAST:event_crearDirectorioActionPerformed
 
-        
-    }//GEN-LAST:event_menuItemEliminarActionPerformed
-
-    private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
-       System.exit(0);
-    }//GEN-LAST:event_menuItemSalirActionPerformed
+    private void listaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMouseClicked
+        // TODO add your handling code here:
+        String nombre = lista.getSelectedValue();
+        btnMostrarInformacion.setEnabled(true);
+        System.out.println(nombre);
+    }//GEN-LAST:event_listaMouseClicked
 
     private void btnMostrarInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarInformacionActionPerformed
-        rutaAbsoluta = txtRuta.getText();
-        controladorDirectorio.inicializarRuta(txtRuta.getText());
-        String[] resultado = controladorDirectorio.getArchivos();
-        //lstDirectorio.setListData(resultado);
+        // TODO add your handling code here:
+        String nombre = lista.getSelectedValue();
+        String ruta = txtRuta.getText();
+
+        String informacion = controladorDirectorio.mostrarInformacion(nombre, ruta);
+        txtAreaInformacion.setText(informacion);
+        lista.clearSelection();
+        btnMostrarInformacion.setEnabled(false);
     }//GEN-LAST:event_btnMostrarInformacionActionPerformed
 
-    private void btnListarArchivosOcultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArchivosOcultosActionPerformed
-       if(txtRuta.getText().equals("")){
-       JOptionPane.showMessageDialog(null, "Ingrese una ruta");
-       }else{
-       //List<String> 
-       }
-    }//GEN-LAST:event_btnListarArchivosOcultosActionPerformed
+    private void renombrarDirectorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renombrarDirectorioActionPerformed
+        // TODO add your handling code here:
+        String renombre = null;
+
+        renombre = JOptionPane.showInputDialog("Nombre del nuevo directorio");
+        if (renombre == null) {
+            JOptionPane.showMessageDialog(this, "Agregue un nombre al directorio");
+        } else {
+            String ruta = txtRuta.getText();
+            if (controladorDirectorio.comprobarRuta(ruta)) {
+                String actual = lista.getSelectedValue();
+                controladorDirectorio.renombrarDirectorio(ruta, actual, renombre);
+                JOptionPane.showMessageDialog(this, "Directorio actualizado");
+                List<String> directorio = controladorDirectorio.listarArchivos(ruta);
+                llenarLista(directorio);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ruta incorrecta vuelva a ingresar");
+            }
+        }
+
+
+    }//GEN-LAST:event_renombrarDirectorioActionPerformed
+
+    private void eliminarDirectorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDirectorioActionPerformed
+        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro deseas eliminar este directorio?");
+        if (opcion == JOptionPane.YES_OPTION) {
+            try {
+                String eliminar = lista.getSelectedValue();
+                String ruta = txtRuta.getText();
+                controladorDirectorio.eliminarDirectorio(ruta, eliminar);
+                List<String> directorio = controladorDirectorio.listarArchivos(ruta);
+                llenarLista(directorio);
+                //JOptionPane.showMessageDialog(this, "Directorio eliminado ");
+            } catch (IOException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        List<String> directorio = controladorDirectorio.listarArchivos(txtRuta.getText());
+        llenarLista(directorio);
+
+    }//GEN-LAST:event_eliminarDirectorioActionPerformed
+
+    private void listaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaValueChanged
+       String nombre = lista.getSelectedValue();
+        String ruta = txtRuta.getText();
+        String contenido = controladorDirectorio.leerArchivo(nombre);
+        txtTexto.setText(contenido);
+        
+    }//GEN-LAST:event_listaValueChanged
 
     /**
      * @param args the command line arguments
@@ -373,6 +487,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -383,24 +498,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnListarArchivosOcultos;
     private javax.swing.JButton btnListarDirectorios;
     private javax.swing.JButton btnListarDirectoriosOcultos;
     private javax.swing.JButton btnMostrarInformacion;
-    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JMenuItem crearDirectorio;
+    private javax.swing.JMenuItem eliminarDirectorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextAreaInformacion;
-    private javax.swing.JList<String> listarTodo;
-    private javax.swing.JMenuItem menuItemCrear;
-    private javax.swing.JMenuItem menuItemEliminar;
-    private javax.swing.JMenuItem menuItemRenombrar;
-    private javax.swing.JMenuItem menuItemSalir;
+    private javax.swing.JList<String> lista;
+    private javax.swing.JMenuItem renombrarDirectorio;
+    private javax.swing.JMenuItem salir;
+    private javax.swing.JTextArea txtAreaInformacion;
+    private javax.swing.JScrollPane txtContenido;
     private javax.swing.JTextField txtRuta;
+    private javax.swing.JTextArea txtTexto;
     // End of variables declaration//GEN-END:variables
 }
