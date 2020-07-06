@@ -37,7 +37,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         for (String nombre : directorio) {
             modelo.addElement(nombre);
         }
-        lista.setModel(modelo);
+        listaTodo.setModel(modelo);
         txtAreaInformacion.setText("");
         btnMostrarInformacion.setEnabled(false);
     }
@@ -45,7 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public void limpiarLista() {
         DefaultListModel modelo = new DefaultListModel();
         modelo.clear();
-        lista.setModel(modelo);
+        listaTodo.setModel(modelo);
         txtAreaInformacion.setText("");
         btnMostrarInformacion.setEnabled(false);
     }
@@ -62,7 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lista = new javax.swing.JList<>();
+        listaTodo = new javax.swing.JList<>();
         btnMostrarInformacion = new javax.swing.JButton();
         btnListarDirectorios = new javax.swing.JButton();
         btnListarArchivosOcultos = new javax.swing.JButton();
@@ -105,19 +105,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 95, Short.MAX_VALUE)
         );
 
-        lista.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), null));
-        lista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lista.addMouseListener(new java.awt.event.MouseAdapter() {
+        listaTodo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), null));
+        listaTodo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaTodo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaMouseClicked(evt);
+                listaTodoMouseClicked(evt);
             }
         });
-        lista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listaTodo.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listaValueChanged(evt);
+                listaTodoValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(lista);
+        jScrollPane1.setViewportView(listaTodo);
 
         btnMostrarInformacion.setBackground(new java.awt.Color(102, 102, 255));
         btnMostrarInformacion.setText("Mostrar Información");
@@ -284,7 +284,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         String ruta = txtRuta.getText();
 
-        String subdirectorio = lista.getSelectedValue();
+        String subdirectorio = listaTodo.getSelectedValue();
 
         if (subdirectorio != null) {
             List<String> directorios = controladorDirectorio.buscarPorNombre(ruta, subdirectorio);
@@ -392,21 +392,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_crearDirectorioActionPerformed
 
-    private void listaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMouseClicked
+    private void listaTodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaTodoMouseClicked
         // TODO add your handling code here:
-        String nombre = lista.getSelectedValue();
+        String nombre = listaTodo.getSelectedValue();
         btnMostrarInformacion.setEnabled(true);
         System.out.println(nombre);
-    }//GEN-LAST:event_listaMouseClicked
+    }//GEN-LAST:event_listaTodoMouseClicked
 
     private void btnMostrarInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarInformacionActionPerformed
         // TODO add your handling code here:
-        String nombre = lista.getSelectedValue();
+        String nombre = listaTodo.getSelectedValue();
         String ruta = txtRuta.getText();
 
         String informacion = controladorDirectorio.mostrarInformacion(nombre, ruta);
         txtAreaInformacion.setText(informacion);
-        lista.clearSelection();
+        listaTodo.clearSelection();
         btnMostrarInformacion.setEnabled(false);
     }//GEN-LAST:event_btnMostrarInformacionActionPerformed
 
@@ -420,7 +420,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         } else {
             String ruta = txtRuta.getText();
             if (controladorDirectorio.comprobarRuta(ruta)) {
-                String actual = lista.getSelectedValue();
+                String actual = listaTodo.getSelectedValue();
                 controladorDirectorio.renombrarDirectorio(ruta, actual, renombre);
                 JOptionPane.showMessageDialog(this, "Directorio actualizado");
                 List<String> directorio = controladorDirectorio.listarArchivos(ruta);
@@ -438,7 +438,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro deseas eliminar este directorio?");
         if (opcion == JOptionPane.YES_OPTION) {
             try {
-                String eliminar = lista.getSelectedValue();
+                String eliminar = listaTodo.getSelectedValue();
                 String ruta = txtRuta.getText();
                 controladorDirectorio.eliminarDirectorio(ruta, eliminar);
                 List<String> directorio = controladorDirectorio.listarArchivos(ruta);
@@ -453,13 +453,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_eliminarDirectorioActionPerformed
 
-    private void listaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaValueChanged
-       String nombre = lista.getSelectedValue();
+    private void listaTodoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaTodoValueChanged
+       String nombre = listaTodo.getSelectedValue();
         String ruta = txtRuta.getText();
         String contenido = controladorDirectorio.leerArchivo(nombre);
         txtTexto.setText(contenido);
         
-    }//GEN-LAST:event_listaValueChanged
+    }//GEN-LAST:event_listaTodoValueChanged
 
     /**
      * @param args the command line arguments
@@ -511,7 +511,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> lista;
+    private javax.swing.JList<String> listaTodo;
     private javax.swing.JMenuItem renombrarDirectorio;
     private javax.swing.JMenuItem salir;
     private javax.swing.JTextArea txtAreaInformacion;
