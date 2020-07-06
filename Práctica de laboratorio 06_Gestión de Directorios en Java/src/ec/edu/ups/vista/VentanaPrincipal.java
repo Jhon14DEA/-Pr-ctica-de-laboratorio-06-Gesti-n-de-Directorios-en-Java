@@ -73,6 +73,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txtAreaInformacion = new javax.swing.JTextArea();
         txtContenido = new javax.swing.JScrollPane();
         txtTexto = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         crearDirectorio = new javax.swing.JMenuItem();
@@ -105,6 +107,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 95, Short.MAX_VALUE)
         );
 
+        listaTodo.setBackground(new java.awt.Color(255, 255, 51));
         listaTodo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), null));
         listaTodo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listaTodo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,7 +122,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listaTodo);
 
-        btnMostrarInformacion.setBackground(new java.awt.Color(102, 102, 255));
+        btnMostrarInformacion.setBackground(new java.awt.Color(51, 255, 51));
         btnMostrarInformacion.setText("Mostrar Información");
         btnMostrarInformacion.setEnabled(false);
         btnMostrarInformacion.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +131,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnListarDirectorios.setBackground(new java.awt.Color(102, 102, 255));
+        btnListarDirectorios.setBackground(new java.awt.Color(51, 204, 255));
+        btnListarDirectorios.setForeground(new java.awt.Color(51, 255, 0));
         btnListarDirectorios.setText("Listar Directorios");
         btnListarDirectorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,7 +140,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnListarArchivosOcultos.setBackground(new java.awt.Color(102, 102, 255));
+        btnListarArchivosOcultos.setBackground(new java.awt.Color(0, 255, 255));
+        btnListarArchivosOcultos.setForeground(new java.awt.Color(0, 255, 0));
         btnListarArchivosOcultos.setText("Listar Archivos Ocultos");
         btnListarArchivosOcultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,7 +149,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnListarDirectoriosOcultos.setBackground(new java.awt.Color(102, 102, 255));
+        btnListarDirectoriosOcultos.setBackground(new java.awt.Color(51, 255, 255));
+        btnListarDirectoriosOcultos.setForeground(new java.awt.Color(0, 255, 0));
         btnListarDirectoriosOcultos.setText("Listar Directorios Ocultos");
         btnListarDirectoriosOcultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,15 +161,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Ruta:");
 
         txtAreaInformacion.setEditable(false);
-        txtAreaInformacion.setBackground(new java.awt.Color(153, 153, 153));
+        txtAreaInformacion.setBackground(new java.awt.Color(102, 102, 255));
         txtAreaInformacion.setColumns(20);
         txtAreaInformacion.setLineWrap(true);
         txtAreaInformacion.setRows(5);
         jScrollPane2.setViewportView(txtAreaInformacion);
 
+        txtTexto.setBackground(new java.awt.Color(255, 255, 255));
         txtTexto.setColumns(20);
         txtTexto.setRows(5);
         txtContenido.setViewportView(txtTexto);
+
+        jLabel2.setText("Datos dentro de la archivo o directorio");
+
+        jLabel3.setBackground(new java.awt.Color(102, 102, 255));
+        jLabel3.setText("Informacion del archivo o directorio");
 
         jMenu1.setText("Gestionar Directorio");
 
@@ -214,32 +226,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(btnMostrarInformacion))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(btnListarDirectorios)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnListarArchivosOcultos)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnListarDirectoriosOcultos))
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnMostrarInformacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(txtContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2)))
                 .addGap(586, 586, 586))
         );
         layout.setVerticalGroup(
@@ -261,12 +278,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMostrarInformacion))
-                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnMostrarInformacion)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -505,6 +528,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem crearDirectorio;
     private javax.swing.JMenuItem eliminarDirectorio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
