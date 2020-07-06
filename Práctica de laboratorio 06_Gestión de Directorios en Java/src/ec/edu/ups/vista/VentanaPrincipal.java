@@ -393,20 +393,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nuevo = null;
 
-        nuevo = JOptionPane.showInputDialog("Ingrese el nombre del directorio");
+        //nuevo = JOptionPane.showInputDialog("Ingrese el nombre del directorio");
         if (nuevo == null) {
-            JOptionPane.showMessageDialog(this, "Directorio creado");
-        } else {
+           nuevo = JOptionPane.showInputDialog("Ingrese el nombre del directorio");
             System.out.println(nuevo);
             String ruta = txtRuta.getText();
             if (ruta == null) {
-                JOptionPane.showMessageDialog(this, "Ingrese la ruta para crear un nuevo directorio");
+                JOptionPane.showMessageDialog(this, "");
             } else {
                 if (controladorDirectorio.comprobarExistencia(ruta, nuevo)) {
                      JOptionPane.showMessageDialog(this, "La carpeta ya existe");
 
                 } else {
                     controladorDirectorio.crearDirectorio(ruta, nuevo);
+                    JOptionPane.showMessageDialog(this, "Directorio creado con exito");
                     List<String> directorio = controladorDirectorio.listarArchivos(ruta);
                     llenarLista(directorio);
                 }
